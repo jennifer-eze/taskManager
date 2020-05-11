@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>View Task Board|Task Manager</title>
+    <style>
+        .task {
+            border: 1px solid;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:deepskyblue;">
+            <a class="navbar-brand" href="/">Task Manager</a>
+        </nav>
+        <br/>
+        <div class="container">
+            <p>Board Details</p>
+            <p>Board Name : {{board_name}}</p>
+            <p>Creator : {{creator}}</p>
+
+            {% if creator == myuser.email %}
+            <a href="/invite?id={{board_id}}"><button class="btn btn-primary">Add User</button></a>
+            <a href="/renameBoard?id={{board_id}}"><button class="btn btn-primary">Rename TaskBoard</button></a>
+            <a href="/deleteUser?id={{board_id}}"><button type="submit" class="btn btn-primary" name="button">Delete User</button></a>
+            <button type="submit" class="btn btn-primary" name="button" value="Create">Delete TaskBoard</button> {% endif %}
+            <a href="addTask?id={{board_id}}"><button type="submit" class="btn btn-primary" name="button" value="Create">Add Task</button></a>
+
+
+        </div>
+        <br/>
+        <div class="row">
+            {% for x in tasks %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"> {{x.task_name}}</h5>
+                        <p class="card-text">
+                            Deadline: {{x.deadline}} <br> Completed? : {{x.completed}} <br> Assigned To: {% if x.assigned_user == 'unassigned' %}
+                            <a style="color: red;">{{x.assigned_user}}</a> {% else %} {{x.assigned_user}} {% endif %}
+                        </p>
+                        {% if x.completed == "Yes" %} Date completed: {{x.date_completed}}<br> Time completed:{{x.time_completed}} {% else %}
+                        <form method="post" action="/view_board?id={{board_id}}&task_name={{x.task_name}}">
+
+                            <button class="btn btn-primary" value="mark_task" name="button">
+                                Mark as Complete
+                            </button><br/><br/>
+                        </form>
+                        <a href="/editTask?id={{board_id}}&task_name={{x.task_name}}"><button class="btn btn-primary">Edit</button> </a> {% endif %}
+                        <form method="post" action="/view_board?id={{board_id}}&task_name={{x.task_name}}">
+                            <br> <button class="btn btn-primary" type='submit' value="delete_task" name="button">Delete</button>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>
