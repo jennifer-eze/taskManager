@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add Task|Task Manager</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:deepskyblue;">
+            <a class="navbar-brand" href="/">Task Manager</a>
+        </nav>
+        <br/>
+        <form method="post" action="/addTask?id={{board_id}}">
+            <div class="container">
+                <p>Add Task</p>
+                <div class="form-group">
+                    <label for="taskname">Task Name</label>
+                    <input type="text" class="form-control" name="task_name"><br>
+                    <label for="deadline">Deadline</label>
+                    <input type="date" class="form-control" name="deadline"><br>
+                    <!-- <label for="completed">Completed</label>
+                    <select class="form-control" name="completed">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select><br> -->
+                    <label for="assigned_user">Assign User</label>
+                    <select class="form-control" name="assigned_user">
+                        {% for x in board_members %}
+                        <option>{{x}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" name="button" value="addTask">Add</button>
+                <button type="submit" class="btn btn-primary" name="button" value="cancel">Cancel</button>
+        </form>
+
+        {{error}}
+
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>
